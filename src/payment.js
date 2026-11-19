@@ -22,7 +22,7 @@ export async function payWithRazorpay({ info, user, onVerified, onDismiss, onErr
     description: 'Order payment',
     order_id: info.orderId,
     prefill: { name: user?.name, email: user?.email, contact: user?.phone },
-    theme: { color: '#0B4A44' },
+    theme: { color: '#B58B4C' },
     modal: { ondismiss: () => onDismiss?.() },
     handler: async (response) => {
       try {

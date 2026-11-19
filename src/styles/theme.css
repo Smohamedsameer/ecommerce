@@ -1,43 +1,46 @@
 /* =====================================================================
-   COLOUR CODE  (change a value here and the whole site follows)
-   Forest   #0B4A44  deep green: hero, sidebar, footer, primary surfaces
-   Teal     #088178  your original brand colour: links, actions, focus
-   Brass    #B8893A  premium accent: ratings, discount tags (used sparingly)
-   Ink      #0F2623  text          Mist  #F3F7F6  page background
-   Dark mode swaps surfaces and text; brand colours stay recognisable.
+   COLOUR CODE  "Noir & Gold"  (graded from the hero film)
+   Noir     #14110D  near-black charcoal: hero, sidebar, footer, primary surfaces
+   Gold     #B58B4C  warm amber from the film's highlights: actions, links, focus
+   Champagne #E8C987 light gold for text on dark
+   Ivory    #F6F2EC  page background (light mode)     Ink  #17130E  text
+   Change a value here and the whole site follows. (Variable names such as
+   --forest / --teal are kept so existing components keep working.)
+   Dark mode is true noir with brighter gold.
    ===================================================================== */
 :root {
   color-scheme: light;
-  --forest: #0B4A44;
-  --forest-2: #083C37;
-  --brass: #B8893A;
-  --brass-soft: #F6EDDA;
-  --brass-ink: #6b4c12;
+  --forest: #14110D;
+  --forest-2: #0C0A08;
+  --brass: #B58B4C;
+  --brass-soft: #F3E9D6;
+  --brass-ink: #6E5126;
+  --champagne: #E8C987;
 
-  --bg: #F3F7F6;
+  --bg: #F6F2EC;
   --surface: #FFFFFF;
-  --surface-2: #F8FBFA;
-  --ink: #0F2623;
-  --muted: #5B706D;
-  --line: #DCE6E3;
-  --line-strong: #C3D3CF;
+  --surface-2: #FAF6F0;
+  --ink: #17130E;
+  --muted: #6E655A;
+  --line: #E6DDD0;
+  --line-strong: #D3C6B3;
 
-  --primary: #0B4A44;
-  --primary-hover: #083C37;
-  --on-primary: #FFFFFF;
-  --teal: #088178;
-  --teal-hover: #066A63;
-  --on-teal: #FFFFFF;
-  --link: #088178;
-  --teal-soft: #E1F1EE;
+  --primary: #17130E;
+  --primary-hover: #2B241A;
+  --on-primary: #F3E6CC;
+  --teal: #B58B4C;
+  --teal-hover: #A07739;
+  --on-teal: #1A1206;
+  --link: #8A6430;
+  --teal-soft: #F1E7D3;
 
   --success: #1E8A5A; --success-soft: #E0F3EA;
   --warning: #B36B0C; --warning-soft: #FBF0DC;
   --danger: #B3372B;  --danger-soft: #FAE6E3;
 
-  --header-bg: rgba(255, 255, 255, .86);
+  --header-bg: rgba(246, 242, 236, .86);
   --tile: #FFFFFF;           /* product photo tiles stay white: photos have white backdrops */
-  --scrim: rgba(8, 28, 26, .55);
+  --scrim: rgba(12, 10, 8, .6);
 
   --font-display: 'Fraunces', 'Noto Sans Tamil', 'Noto Sans Devanagari', Georgia, serif;
   --font-body: 'Manrope', 'Noto Sans Tamil', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -45,45 +48,45 @@
   /* spacing scale (8px rhythm) */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
   --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-xl: 28px;
-  --shadow-sm: 0 1px 2px rgba(15, 38, 35, .06), 0 1px 1px rgba(15, 38, 35, .04);
-  --shadow-md: 0 10px 30px -8px rgba(15, 38, 35, .16);
-  --shadow-lg: 0 28px 60px -16px rgba(15, 38, 35, .28);
+  --shadow-sm: 0 1px 2px rgba(23, 19, 14, .07), 0 1px 1px rgba(23, 19, 14, .04);
+  --shadow-md: 0 10px 30px -8px rgba(23, 19, 14, .18);
+  --shadow-lg: 0 28px 60px -16px rgba(23, 19, 14, .32);
   --ease: cubic-bezier(.2, .7, .2, 1);
   --header-h: 72px;
 }
 
 [data-theme='dark'] {
   color-scheme: dark;
-  --brass: #D2A24F;
-  --brass-soft: rgba(210, 162, 79, .16);
-  --brass-ink: #E8C987;
+  --brass: #D2A862;
+  --brass-soft: rgba(210, 168, 98, .16);
+  --brass-ink: #E8CC95;
 
-  --bg: #0A1311;
-  --surface: #111F1C;
-  --surface-2: #0E1A18;
-  --ink: #E8F1EF;
-  --muted: #97AEAA;
-  --line: #213632;
-  --line-strong: #2E4742;
+  --bg: #0B0A09;
+  --surface: #15130F;
+  --surface-2: #100E0B;
+  --ink: #F1EADF;
+  --muted: #A39887;
+  --line: #2A251E;
+  --line-strong: #3B342A;
 
-  --primary: #19A99B;
-  --primary-hover: #25BCAD;
-  --on-primary: #03201D;
-  --teal: #19A99B;
-  --teal-hover: #25BCAD;
-  --on-teal: #03201D;
-  --link: #3FCBBE;
-  --teal-soft: rgba(25, 169, 155, .16);
+  --primary: #D2A862;
+  --primary-hover: #E3BC78;
+  --on-primary: #1A1206;
+  --teal: #D2A862;
+  --teal-hover: #E3BC78;
+  --on-teal: #1A1206;
+  --link: #E0BE85;
+  --teal-soft: rgba(210, 168, 98, .14);
 
   --success: #46C98B; --success-soft: rgba(70, 201, 139, .14);
   --warning: #E3A53E; --warning-soft: rgba(227, 165, 62, .14);
   --danger: #F07A6D;  --danger-soft: rgba(240, 122, 109, .14);
 
-  --header-bg: rgba(10, 19, 17, .82);
-  --scrim: rgba(0, 0, 0, .62);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
-  --shadow-md: 0 12px 32px -8px rgba(0, 0, 0, .55);
-  --shadow-lg: 0 30px 64px -16px rgba(0, 0, 0, .7);
+  --header-bg: rgba(11, 10, 9, .8);
+  --scrim: rgba(0, 0, 0, .68);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+  --shadow-md: 0 12px 32px -8px rgba(0, 0, 0, .65);
+  --shadow-lg: 0 30px 64px -16px rgba(0, 0, 0, .8);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -98,7 +101,7 @@ img { max-width: 100%; display: block; }
 a { color: var(--link); text-decoration: none; transition: color .15s; }
 a:hover { color: var(--teal-hover); }
 h1, h2, h3, h4 { margin: 0 0 .5em; line-height: 1.18; font-weight: 600; }
-h1, h2, .display { font-family: var(--font-display); letter-spacing: -.015em; font-weight: 600; }
+h1, h2, .display { font-family: var(--font-display); letter-spacing: -.02em; font-weight: 500; }
 h1 { font-size: clamp(2.1rem, 5.4vw, 3.8rem); }
 h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); }
 h3 { font-size: 1.1rem; }
@@ -148,16 +151,16 @@ html.lenis, html.lenis body { height: auto; }
 .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
 .btn.forest { background: var(--primary); color: var(--on-primary); }
 .btn.forest:hover { background: var(--primary-hover); color: var(--on-primary); }
-.btn.brass { background: var(--brass); color: #1b1303; }
-.btn.brass:hover { background: #c79744; color: #1b1303; }
+.btn.brass { background: linear-gradient(135deg, #E8C987, #C39A5E); color: #1b1303; }
+.btn.brass:hover { background: linear-gradient(135deg, #F0D6A0, #CFA467); color: #1b1303; }
 .btn.outline { background: transparent; color: var(--link); border-color: var(--teal); }
 .btn.outline:hover { background: var(--teal-soft); color: var(--link); box-shadow: none; }
 .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
 .btn.ghost:hover { background: var(--surface-2); color: var(--ink); box-shadow: none; }
-.btn.on-dark { background: #fff; color: var(--forest); }
-.btn.on-dark:hover { background: var(--brass-soft); color: var(--forest); }
-.btn.outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
-.btn.outline-light:hover { background: rgba(255,255,255,.12); color: #fff; box-shadow: none; }
+.btn.on-dark { background: linear-gradient(135deg, #F0D9A6, #C79B5A); color: #17110A; }
+.btn.on-dark:hover { background: linear-gradient(135deg, #F6E3B8, #D3A867); color: #17110A; box-shadow: 0 10px 28px -8px rgba(232, 201, 135, .55); }
+.btn.outline-light { background: rgba(255,255,255,.04); color: #F3E6CC; border-color: rgba(232,201,135,.45); backdrop-filter: blur(6px); }
+.btn.outline-light:hover { background: rgba(232,201,135,.14); color: #fff; border-color: rgba(232,201,135,.8); box-shadow: none; }
 .btn.danger { background: var(--danger); color: #fff; }
 .btn.danger:hover { background: #962d23; color: #fff; }
 .btn.sm { min-height: 36px; padding: 0 14px; font-size: .86rem; border-radius: var(--r-sm); }
@@ -278,7 +281,7 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 }
 
 /* scroll progress + back to top */
-.progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--teal), var(--brass)); z-index: 400; pointer-events: none; }
+.progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--brass), var(--champagne)); z-index: 400; pointer-events: none; }
 .to-top { position: fixed; right: 20px; bottom: 24px; z-index: 90; opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity .3s, transform .3s var(--ease); box-shadow: var(--shadow-md); }
 .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
 

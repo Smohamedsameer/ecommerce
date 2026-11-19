@@ -20,7 +20,7 @@ export function ThemeProvider({ children }) {
   const resolved = theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', resolved);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#0A1311' : '#0B4A44');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#0B0A09' : '#14110D');
   }, [resolved]);
   useEffect(() => { document.documentElement.classList.toggle('no-motion', motion === 'reduced'); }, [motion]);
 

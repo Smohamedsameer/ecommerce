@@ -17,7 +17,7 @@ export default function DashLayout({ role, items, badges = {}, titles }) {
   return (
     <div className="dash">
       <aside className={`side ${open ? 'open' : ''}`}>
-        <Logo />
+        <Logo dark />
         <div className="role-tag">{role === 'ADMIN' ? 'Admin panel' : `Seller${user?.storeName ? ': ' + user.storeName : ''}`}</div>
         <nav aria-label="Dashboard">
           {items.map(({ to, label, icon: Icon, end }) => (

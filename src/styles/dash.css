@@ -1,7 +1,7 @@
 /* ---------- admin & seller shell ---------- */
 .dash { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100dvh; background: var(--bg); }
 .side { background: var(--forest); color: rgba(255,255,255,.82); display: flex; flex-direction: column; position: sticky; top: 0; height: 100dvh; padding: var(--s4) var(--s3); z-index: 120; }
-[data-theme='dark'] .side { background: #0B1A17; border-right: 1px solid var(--line); }
+[data-theme='dark'] .side { background: #0C0A08; border-right: 1px solid var(--line); }
 .side .logo { color: #fff; padding: 4px 10px var(--s4); }
 .side .logo-mark { background: rgba(255,255,255,.1); box-shadow: none; }
 .side .role-tag { margin: 0 10px var(--s4); font-size: .8rem; color: #E8C987; font-weight: 700; }

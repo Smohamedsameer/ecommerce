@@ -145,8 +145,8 @@ export function Accordion({ items }) {
   ));
 }
 
-/** Counts up to a number when it scrolls into view. */
-export function Countup({ to, suffix = '', prefix = '' }) {
+/** Counts up to a number when it scrolls into view (eases out, then flashes gold when it lands). */
+export function Countup({ to, suffix = '', prefix = '', duration = 2000 }) {
   const ref = useRef(null);
   const [v, setV] = useState(0);
   useEffect(() => {
@@ -154,16 +154,17 @@ export function Countup({ to, suffix = '', prefix = '' }) {
     const reduce = document.documentElement.classList.contains('no-motion') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) { setV(to); return undefined; }
     let raf; let start;
+    const ease = (p) => (p >= 1 ? 1 : 1 - Math.pow(2, -10 * p));   // easeOutExpo
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       io.disconnect();
-      const tick = (ts) => { start = start || ts; const p = Math.min(1, (ts - start) / 1400); setV(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) raf = requestAnimationFrame(tick); };
+      const tick = (ts) => { start = start || ts; const p = Math.min(1, (ts - start) / duration); setV(Math.round(to * ease(p))); if (p < 1) raf = requestAnimationFrame(tick); };
       raf = requestAnimationFrame(tick);
     }, { threshold: 0.4 });
     io.observe(el);
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
-  }, [to]);
-  return <span ref={ref}>{prefix}{v.toLocaleString('en-IN')}{suffix}</span>;
+  }, [to, duration]);
+  return <span ref={ref} className="countup" data-done={to > 0 && v === to ? '' : undefined}>{prefix}{v.toLocaleString('en-IN')}{suffix}</span>;
 }
 
 // ---------- badges (storefront badges follow the language; pass `plain` for the English-only dashboards)

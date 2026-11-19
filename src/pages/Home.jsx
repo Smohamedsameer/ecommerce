@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BadgeCheck, Lock, RotateCcw, Truck } from 'lucide-react';
+import { BadgeCheck, Lock, Pause, Play, RotateCcw, Shirt, Truck, Gift } from 'lucide-react';
 import api from '../api/client';
 import { Accordion, Countup, ProductGrid, Reveal, SkeletonGrid, Stars } from '../components/ui';
 import { useAuth } from '../context/AuthContext';
 import { useStoreInfo } from '../context/StoreInfoContext';
+import { useTheme } from '../context/ThemeContext';
 import { useT } from '../i18n/I18nContext';
 import { getRecent, imageUrl, money } from '../utils';
 
@@ -12,6 +13,45 @@ const TILES = [
   { name: 'Shirts', img: '/img/pro1.jpg' }, { name: 'T-Shirts', img: '/img/prod6.jpg' },
   { name: 'Jerseys', img: '/img/prod4.jpg' }, { name: 'Printed', img: '/img/prod9.jpg' },
 ];
+
+/** Full-bleed looping hero film. Respects reduced-motion, pauses off-screen, and can be paused by the visitor. */
+function HeroVideo() {
+  const { t } = useT();
+  const { motion } = useTheme();
+  const ref = useRef(null);
+  const reduce = motion === 'reduced' || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [playing, setPlaying] = useState(!reduce);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !('IntersectionObserver' in window)) return undefined;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.05 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    if (playing && visible && !reduce) v.play().catch(() => setPlaying(false));
+    else v.pause();
+  }, [playing, visible, reduce]);
+
+  return (
+    <>
+      <div className="hero-media" aria-hidden="true">
+        <video ref={ref} src="/video/hero.mp4" poster="/video/hero-poster.jpg" muted loop playsInline preload="auto" autoPlay={!reduce} disablePictureInPicture />
+      </div>
+      <div className="hero-shade" />
+      {reduce ? null : (
+        <button type="button" className="hero-ctl" onClick={() => setPlaying((p) => !p)} aria-label={playing ? t('home.pause') : t('home.play')}>
+          {playing ? <Pause size={16} /> : <Play size={16} />}
+        </button>
+      )}
+    </>
+  );
+}
 
 export default function Home() {
   const { user } = useAuth();
@@ -32,7 +72,7 @@ export default function Home() {
     api.get('/api/products', { params: { sort: 'newest', size: 4 } }).then((r) => { setFresh(r.data.content); setTotal(r.data.totalElements); }).catch(() => setFresh([]));
   }, []);
 
-  const mosaic = (top || []).slice(0, 4);
+  const feature = top && top[0];
   const free = money(info.freeDeliveryAbove);
   const faq = [1, 2, 3, 4, 5].map((i) => ({ q: t(`faq.${i}.q`), a: t(`faq.${i}.a`, { n: info.returnWindowDays === undefined ? 7 : (i === 1 ? info.deliveryDays : info.returnWindowDays) }) }));
   const marquee = [t('home.tr1.t'), 'Shirts', t('home.tr3.t'), 'Jerseys', t('home.tr2.t'), 'T-Shirts', t('home.tr4.t'), 'Printed'];
@@ -40,29 +80,27 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <div className="blob a" /><div className="blob b" /><div className="hero-grid" />
+        <HeroVideo />
         <div className="container hero-inner">
           <div>
-            <Reveal><h1>{t('home.t1')} <em>{t('home.t2')}</em></h1></Reveal>
-            <Reveal delay={120}><p className="lead">{t('home.lead')}</p></Reveal>
-            <Reveal delay={220} className="hero-cta">
+            <Reveal><span className="eyebrow">{t('home.eyebrow')}</span></Reveal>
+            <Reveal delay={80}><h1>{t('home.t1')} <em>{t('home.t2')}</em></h1></Reveal>
+            <Reveal delay={200}><p className="lead">{t('home.lead')}</p></Reveal>
+            <Reveal delay={300} className="hero-cta">
               <Link to="/shop" className="btn on-dark lg">{t('home.shop')}</Link>
               {user?.role === 'SELLER' ? <Link to="/seller" className="btn outline-light lg">{t('nav.seller')}</Link> : <Link to="/register?as=seller" className="btn outline-light lg">{t('home.sell')}</Link>}
             </Reveal>
-            <Reveal delay={320} className="hero-note">
+            <Reveal delay={400} className="hero-note">
               <span><Truck size={18} /> {t('home.note1', { n: free })}</span>
               <span><Lock size={18} /> {t('home.note2')}</span>
             </Reveal>
           </div>
-          <div className="mosaic" aria-label="Top rated pieces">
-            {top === null ? Array.from({ length: 4 }).map((_, i) => <div key={i} className="skeleton" style={{ aspectRatio: '1', borderRadius: 18, marginTop: i % 2 ? 32 : 0 }} />)
-              : mosaic.map((p) => (
-                <Link key={p.id} to={`/product/${p.id}`}>
-                  <img src={imageUrl(p.imageUrl)} alt={p.name} />
-                  <div className="cap"><b>{p.name}</b><span>{money(p.price)}</span></div>
-                </Link>
-              ))}
-          </div>
+          {feature ? (
+            <Link to={`/product/${feature.id}`} className="hero-feature">
+              <img src={imageUrl(feature.imageUrl)} alt="" />
+              <div><small>{t('home.fav.t')}</small><b>{feature.name}</b><span>{money(feature.price)}</span></div>
+            </Link>
+          ) : null}
         </div>
         <div className="marquee" aria-hidden="true">
           <div className="track">{[0, 1].map((k) => <span key={k}>{marquee.map((m, i) => <span key={i}>{m}</span>)}</span>)}</div>
@@ -108,9 +146,16 @@ export default function Home() {
       <section className="section tight">
         <div className="container">
           <div className="stats-band">
-            {[[info.returnWindowDays, '', 'home.stat.returns'], [info.deliveryDays, '', 'home.stat.delivery'], [info.freeDeliveryAbove, '₹', 'home.stat.free'], [total, '', 'home.stat.products']].map(([n, prefix, k], i) => (
-              <Reveal key={k} variant="zoom" delay={i * 90}><b><Countup to={Number(n) || 0} prefix={prefix} /></b><span>{t(k)}</span></Reveal>
-            ))}
+            <Reveal className="stats-head"><span className="eyebrow">{t('home.stats.eyebrow')}</span><h2>{t('home.stats.t')}</h2></Reveal>
+            <div className="stats-grid">
+              {[[RotateCcw, info.returnWindowDays, '', 'home.stat.returns'], [Truck, info.deliveryDays, '', 'home.stat.delivery'], [Gift, info.freeDeliveryAbove, '₹', 'home.stat.free'], [Shirt, total, '', 'home.stat.products']].map(([Icon, n, prefix, k], i) => (
+                <Reveal key={k} variant="zoom" delay={i * 110} className="stat-cell">
+                  <span className="stat-ico"><Icon size={22} /></span>
+                  <b className="stat-num"><Countup to={Number(n) || 0} prefix={prefix} /></b>
+                  <span className="stat-label">{t(k)}</span>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

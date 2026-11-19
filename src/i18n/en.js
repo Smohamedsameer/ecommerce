@@ -19,6 +19,8 @@ export default {
   'pref.motion': 'Reduce motion', 'pref.motionHint': 'Turns off animations and smooth scrolling.',
   'pref.themeHint': 'Choose how the store looks.', 'pref.langHint': 'Product names and descriptions stay in the seller’s language.',
   // home
+  'home.eyebrow': 'The Signature Collection', 'home.pause': 'Pause background video', 'home.play': 'Play background video',
+  'home.stats.eyebrow': 'Our promise', 'home.stats.t': 'The promise behind every order',
   'home.t1': 'Shirts, jerseys and tees', 'home.t2': 'worth keeping.',
   'home.lead': 'Fabrics you can feel, fits that hold up wash after wash, and prices that stay honest. New pieces from independent sellers every week.',
   'home.shop': 'Shop the collection', 'home.sell': 'Sell with us', 'home.note1': 'Free delivery above {n}', 'home.note2': 'Secure Razorpay checkout',

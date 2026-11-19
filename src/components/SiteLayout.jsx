@@ -9,10 +9,17 @@ import { useWishlist } from '../context/WishlistContext';
 import { LANGS, useT } from '../i18n/I18nContext';
 import { STORE_NAME } from '../config';
 
-export const Logo = ({ to = '/' }) => (
-  <Link to={to} className="logo" aria-label={STORE_NAME}>
-    <span className="logo-mark"><Shirt size={18} /></span>
-    {STORE_NAME}
+/** Brand logo. Light/dark artwork swaps with the theme; pass `dark` where the background is always dark (footer, sidebars). */
+export const Logo = ({ to = '/', dark = false, full = false }) => (
+  <Link to={to} className={`logo ${full ? 'logo-full' : ''}`} aria-label={STORE_NAME}>
+    {dark ? (
+      <img className="logo-img" src={full ? '/img/logo-full-dark.png' : '/img/logo-dark.png'} alt={STORE_NAME} width="560" height="172" />
+    ) : (
+      <>
+        <img className="logo-img logo-for-light" src="/img/logo-light.png" alt={STORE_NAME} width="560" height="172" />
+        <img className="logo-img logo-for-dark" src="/img/logo-dark.png" alt="" aria-hidden="true" width="560" height="172" />
+      </>
+    )}
   </Link>
 );
 
@@ -154,7 +161,7 @@ function Footer() {
     <footer className="site-footer">
       <div className="container">
         <div className="footer-grid">
-          <div><Logo /><p>{t('foot.tag')}</p><p className="small">Chennai, Tamil Nadu</p></div>
+          <div><Logo dark full /><p>{t('foot.tag')}</p><p className="small">Chennai, Tamil Nadu</p></div>
           <div>
             <h4>{t('foot.shop')}</h4>
             <Link to="/shop?category=Shirts">Shirts</Link><Link to="/shop?category=T-Shirts">T-Shirts</Link>
@@ -211,16 +218,29 @@ export default function SiteLayout() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // reveal-on-scroll for every [data-reveal] element, including ones that load later
+  // reveal-on-scroll for every [data-reveal] element, including ones that load later.
+  // Watched elements are tracked in a local WeakSet (not a DOM attribute) so that React StrictMode's
+  // double-run of effects, or any re-mount of this layout, can never leave an element un-watched and hidden.
   useEffect(() => {
+    const watched = new WeakSet();
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { e.target.setAttribute('data-in', '1'); io.unobserve(e.target); } });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    const scan = () => document.querySelectorAll('[data-reveal]:not([data-in]):not([data-seen])').forEach((el) => { el.setAttribute('data-seen', '1'); io.observe(el); });
+    const scan = () => document.querySelectorAll('[data-reveal]:not([data-in])').forEach((el) => {
+      if (watched.has(el)) return;
+      watched.add(el); io.observe(el);
+    });
     scan();
     const mo = new MutationObserver(scan);
     mo.observe(document.body, { childList: true, subtree: true });
-    return () => { io.disconnect(); mo.disconnect(); };
+    // safety net: anything still hidden after a moment that is already on screen gets revealed
+    const safety = setTimeout(() => {
+      document.querySelectorAll('[data-reveal]:not([data-in])').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.setAttribute('data-in', '1');
+      });
+    }, 1200);
+    return () => { clearTimeout(safety); io.disconnect(); mo.disconnect(); };
   }, []);
 
   useEffect(() => {

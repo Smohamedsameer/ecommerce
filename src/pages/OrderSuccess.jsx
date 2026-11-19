@@ -6,7 +6,7 @@ import { PayBadge, Spinner } from '../components/ui';
 import { useT } from '../i18n/I18nContext';
 import { dateOnly, dateTime, imageUrl, money } from '../utils';
 
-const COLORS = ['#19A99B', '#E8C987', '#0B4A44', '#D2A24F', '#46C98B', '#F07A6D'];
+const COLORS = ['#E8C987', '#D2A862', '#B58B4C', '#F6E3B4', '#46C98B', '#F07A6D'];
 
 export default function OrderSuccess() {
   const { id } = useParams();
