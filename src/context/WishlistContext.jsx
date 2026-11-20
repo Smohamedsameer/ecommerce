@@ -20,7 +20,7 @@ export function WishlistProvider({ children }) {
   }, [user]);
 
   const toggle = useCallback(async (productId) => {
-    if (!user) { toast(t('w.signin'), { icon: '♡' }); nav('/login?next=' + encodeURIComponent(window.location.pathname)); return; }
+    if (!user) { toast(t('w.signin'), { icon: '♡' }); nav('/login?next=' + encodeURIComponent(window.location.pathname.slice(import.meta.env.BASE_URL.length - 1) || '/')); return; }
     const has = ids.includes(productId);
     setIds((prev) => (has ? prev.filter((i) => i !== productId) : [...prev, productId])); // optimistic
     try {

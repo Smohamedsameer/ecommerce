@@ -8,16 +8,17 @@ import { useTheme } from '../context/ThemeContext';
 import { useWishlist } from '../context/WishlistContext';
 import { LANGS, useT } from '../i18n/I18nContext';
 import { STORE_NAME } from '../config';
+import { asset } from '../utils';
 
 /** Brand logo. Light/dark artwork swaps with the theme; pass `dark` where the background is always dark (footer, sidebars). */
 export const Logo = ({ to = '/', dark = false, full = false }) => (
   <Link to={to} className={`logo ${full ? 'logo-full' : ''}`} aria-label={STORE_NAME}>
     {dark ? (
-      <img className="logo-img" src={full ? '/img/logo-full-dark.png' : '/img/logo-dark.png'} alt={STORE_NAME} width="560" height="172" />
+      <img className="logo-img" src={asset(full ? '/img/logo-full-dark.png' : '/img/logo-dark.png')} alt={STORE_NAME} width="560" height="172" />
     ) : (
       <>
-        <img className="logo-img logo-for-light" src="/img/logo-light.png" alt={STORE_NAME} width="560" height="172" />
-        <img className="logo-img logo-for-dark" src="/img/logo-dark.png" alt="" aria-hidden="true" width="560" height="172" />
+        <img className="logo-img logo-for-light" src={asset('/img/logo-light.png')} alt={STORE_NAME} width="560" height="172" />
+        <img className="logo-img logo-for-dark" src={asset('/img/logo-dark.png')} alt="" aria-hidden="true" width="560" height="172" />
       </>
     )}
   </Link>

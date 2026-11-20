@@ -7,11 +7,11 @@ import { useAuth } from '../context/AuthContext';
 import { useStoreInfo } from '../context/StoreInfoContext';
 import { useTheme } from '../context/ThemeContext';
 import { useT } from '../i18n/I18nContext';
-import { getRecent, imageUrl, money } from '../utils';
+import { asset, getRecent, imageUrl, money } from '../utils';
 
 const TILES = [
-  { name: 'Shirts', img: '/img/pro1.jpg' }, { name: 'T-Shirts', img: '/img/prod6.jpg' },
-  { name: 'Jerseys', img: '/img/prod4.jpg' }, { name: 'Printed', img: '/img/prod9.jpg' },
+  { name: 'Shirts', img: asset('/img/pro1.jpg') }, { name: 'T-Shirts', img: asset('/img/prod6.jpg') },
+  { name: 'Jerseys', img: asset('/img/prod4.jpg') }, { name: 'Printed', img: asset('/img/prod9.jpg') },
 ];
 
 /** Full-bleed looping hero film. Respects reduced-motion, pauses off-screen, and can be paused by the visitor. */
@@ -41,7 +41,7 @@ function HeroVideo() {
   return (
     <>
       <div className="hero-media" aria-hidden="true">
-        <video ref={ref} src="/video/hero.mp4" poster="/video/hero-poster.jpg" muted loop playsInline preload="auto" autoPlay={!reduce} disablePictureInPicture />
+        <video ref={ref} src={asset('/video/hero.mp4')} poster={asset('/video/hero-poster.jpg')} muted loop playsInline preload="auto" autoPlay={!reduce} disablePictureInPicture />
       </div>
       <div className="hero-shade" />
       {reduce ? null : (
@@ -136,13 +136,13 @@ export default function Home() {
       <section className="section tight">
         <div className="container promo-mosaic">
           <Reveal variant="zoom" className="pm-main">
-            <Link to="/shop?sort=newest" className="pm-card"><img src="/img/banner-new-collection.jpg" alt="New Collection: casual and minimalist styles, up to 50% off" width="738" height="369" loading="lazy" /></Link>
+            <Link to="/shop?sort=newest" className="pm-card"><img src={asset('/img/banner-new-collection.jpg')} alt="New Collection: casual and minimalist styles, up to 50% off" width="738" height="369" loading="lazy" /></Link>
           </Reveal>
           <Reveal variant="zoom" delay={120}>
-            <Link to="/shop?sort=rating" className="pm-card"><img src="/img/banner-mid-season.jpg" alt="Mid-season sale, 30% off" width="738" height="318" loading="lazy" /></Link>
+            <Link to="/shop?sort=rating" className="pm-card"><img src={asset('/img/banner-mid-season.jpg')} alt="Mid-season sale, 30% off" width="738" height="318" loading="lazy" /></Link>
           </Reveal>
           <Reveal variant="zoom" delay={220}>
-            <Link to="/shop" className="pm-card"><img src="/img/banner-coming-soon.jpg" alt="Coming soon: stay tuned" width="738" height="369" loading="lazy" /></Link>
+            <Link to="/shop" className="pm-card"><img src={asset('/img/banner-coming-soon.jpg')} alt="Coming soon: stay tuned" width="738" height="369" loading="lazy" /></Link>
           </Reveal>
         </div>
       </section>

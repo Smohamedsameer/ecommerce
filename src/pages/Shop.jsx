@@ -6,6 +6,7 @@ import { Empty, Pagination, ProductGrid, Reveal, SkeletonGrid } from '../compone
 import { scrollToEl } from '../components/SiteLayout';
 import { useT } from '../i18n/I18nContext';
 import useDebounced from '../useDebounced';
+import { asset } from '../utils';
 
 const PRICES = [['', 'shop.anyPrice'], ['0-1000', 'shop.p1'], ['1000-2000', 'shop.p2'], ['2000-99999', 'shop.p3']];
 const RATINGS = [['', 'shop.anyRating'], ['4', 'shop.r4'], ['3', 'shop.r3']];
@@ -67,8 +68,8 @@ export default function Shop() {
       </div>
       {!urlQ && !category ? (
         <div className="container shop-promos">
-          <Reveal variant="zoom"><Link to="/shop?sort=newest" className="pm-card"><img src="/img/banner-new-collection.jpg" alt="New Collection: casual and minimalist styles" width="738" height="369" loading="lazy" /></Link></Reveal>
-          <Reveal variant="zoom" delay={120}><Link to="/shop?sort=rating" className="pm-card"><img src="/img/banner-mid-season.jpg" alt="Mid-season sale, 30% off" width="738" height="318" loading="lazy" /></Link></Reveal>
+          <Reveal variant="zoom"><Link to="/shop?sort=newest" className="pm-card"><img src={asset('/img/banner-new-collection.jpg')} alt="New Collection: casual and minimalist styles" width="738" height="369" loading="lazy" /></Link></Reveal>
+          <Reveal variant="zoom" delay={120}><Link to="/shop?sort=rating" className="pm-card"><img src={asset('/img/banner-mid-season.jpg')} alt="Mid-season sale, 30% off" width="738" height="318" loading="lazy" /></Link></Reveal>
         </div>
       ) : null}
       <div className="container shop-layout">

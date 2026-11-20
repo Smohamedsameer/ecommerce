@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { errMsg } from '../api/client';
 import { homeFor, useAuth } from '../context/AuthContext';
 import { useT } from '../i18n/I18nContext';
+import { asset } from '../utils';
 
 /** Splits a headline so its last two words can be styled as a gold italic accent (works for any language). */
 function Headline({ text }) {
@@ -17,7 +18,7 @@ function Side({ seller }) {
   const { t } = useT();
   return (
     <div className="auth-side">
-      <img className="auth-bg" src="/img/login-bg.png" alt="" width="1200" height="1610" fetchpriority="high" />
+      <img className="auth-bg" src={asset('/img/login-bg.png')} alt="" width="1200" height="1610" fetchpriority="high" />
       <div className="auth-shade" aria-hidden="true" />
       <div className="auth-side-inner">
         <span className="eyebrow">{t('home.eyebrow')}</span>

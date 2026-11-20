@@ -9,9 +9,13 @@ export const money = (n) => {
   return Number.isInteger(v) ? inr0.format(v) : inr2.format(v);
 };
 
+/** Path to a file in /public that stays correct under any base path (root, or /repo-name/ on GitHub Pages). */
+export const asset = (p) => import.meta.env.BASE_URL + String(p).replace(/^\//, '');
+
 export const imageUrl = (u) => {
-  if (!u) return '/img/placeholder.svg';
+  if (!u) return asset('/img/placeholder.svg');
   if (u.startsWith('/uploads')) return API_URL + u;
+  if (u.startsWith('/img/')) return asset(u);   // demo products ship their pictures in /public/img
   return u;
 };
 
