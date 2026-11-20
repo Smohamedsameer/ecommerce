@@ -134,6 +134,20 @@ export default function Home() {
       </section>
 
       <section className="section tight">
+        <div className="container promo-mosaic">
+          <Reveal variant="zoom" className="pm-main">
+            <Link to="/shop?sort=newest" className="pm-card"><img src="/img/banner-new-collection.jpg" alt="New Collection: casual and minimalist styles, up to 50% off" width="738" height="369" loading="lazy" /></Link>
+          </Reveal>
+          <Reveal variant="zoom" delay={120}>
+            <Link to="/shop?sort=rating" className="pm-card"><img src="/img/banner-mid-season.jpg" alt="Mid-season sale, 30% off" width="738" height="318" loading="lazy" /></Link>
+          </Reveal>
+          <Reveal variant="zoom" delay={220}>
+            <Link to="/shop" className="pm-card"><img src="/img/banner-coming-soon.jpg" alt="Coming soon: stay tuned" width="738" height="369" loading="lazy" /></Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section tight">
         <div className="container">
           <Reveal className="section-head">
             <div><h2>{t('home.fav.t')}</h2><p>{t('home.fav.s')}</p><span className="rule" /></div>

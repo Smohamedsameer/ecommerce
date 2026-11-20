@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { LayoutGrid, List, Search, SlidersHorizontal, X } from 'lucide-react';
 import api, { errMsg } from '../api/client';
 import { Empty, Pagination, ProductGrid, Reveal, SkeletonGrid } from '../components/ui';
@@ -65,6 +65,12 @@ export default function Shop() {
           <p>{urlQ ? t('shop.results', { q: urlQ }) : t('shop.sub')}</p>
         </div>
       </div>
+      {!urlQ && !category ? (
+        <div className="container shop-promos">
+          <Reveal variant="zoom"><Link to="/shop?sort=newest" className="pm-card"><img src="/img/banner-new-collection.jpg" alt="New Collection: casual and minimalist styles" width="738" height="369" loading="lazy" /></Link></Reveal>
+          <Reveal variant="zoom" delay={120}><Link to="/shop?sort=rating" className="pm-card"><img src="/img/banner-mid-season.jpg" alt="Mid-season sale, 30% off" width="738" height="318" loading="lazy" /></Link></Reveal>
+        </div>
+      ) : null}
       <div className="container shop-layout">
         <aside className={`filters ${showFilters ? 'open' : ''}`}>
           <div className="card">

@@ -5,9 +5,27 @@ import { errMsg } from '../api/client';
 import { homeFor, useAuth } from '../context/AuthContext';
 import { useT } from '../i18n/I18nContext';
 
+/** Splits a headline so its last two words can be styled as a gold italic accent (works for any language). */
+function Headline({ text }) {
+  const w = text.trim().split(/\s+/);
+  if (w.length < 4) return text;
+  return <>{w.slice(0, -2).join(' ')} <em>{w.slice(-2).join(' ')}</em></>;
+}
+
+/** Left panel: editorial photo (fills the panel edge to edge) behind the welcome copy (slow zoom, disabled for reduced-motion visitors). */
 function Side({ seller }) {
   const { t } = useT();
-  return <div className="auth-side"><h2>{seller ? t('au.side2') : t('au.side1')}</h2><p>{seller ? t('au.side2s') : t('au.side1s')}</p></div>;
+  return (
+    <div className="auth-side">
+      <img className="auth-bg" src="/img/login-bg.png" alt="" width="1200" height="1610" fetchpriority="high" />
+      <div className="auth-shade" aria-hidden="true" />
+      <div className="auth-side-inner">
+        <span className="eyebrow">{t('home.eyebrow')}</span>
+        <h2><Headline text={seller ? t('au.side2') : t('au.side1')} /></h2>
+        <p>{seller ? t('au.side2s') : t('au.side1s')}</p>
+      </div>
+    </div>
+  );
 }
 
 export function Login() {
